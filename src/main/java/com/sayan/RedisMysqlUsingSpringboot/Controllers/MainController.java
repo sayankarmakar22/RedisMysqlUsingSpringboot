@@ -16,7 +16,7 @@ public class MainController {
         return productServices.saveProduct(product);
     }
     @GetMapping("/view/{id}")
-    public Product view(@PathVariable int id){
+    public Object view(@PathVariable int id){
         return productServices.viewProduct(id);
     }
     @PutMapping("/update")
@@ -24,7 +24,7 @@ public class MainController {
         return productServices.updateProduct(product);
     }
     @DeleteMapping("/delete/{id}")
-    public String delete(int id){
+    public String delete(@PathVariable  int id){
         return productServices.deleteProduct(id);
     }
 }
