@@ -38,14 +38,8 @@ public class ProductServices {
         if(!productRepo.existsById(product.getId())){
             throw new RuntimeException("product not found");
         }
-        Object foundProductFromRedis = redisTemplate.opsForHash().get(HashKey, product.getId());
-        if(foundProductFromRedis != null){
-            redisTemplate.opsForHash().delete(HashKey,product.getId());
-            redisProduct.setId(product.getId());
-            redisProduct.setPrice(product.getPrice());
-            redisProduct.setName(product.getName());
-            redisTemplate.opsForHash().put(HashKey,product.getId(),redisProduct);
-        }
+
+        redisTemplate.opsForHash().put(HashKey,product.getId(),redisProduct);
 
         Product foundProduct = productRepo.findById(product.getId()).orElseThrow(()-> new RuntimeException("not valid"));
         foundProduct.setName(product.getName());
